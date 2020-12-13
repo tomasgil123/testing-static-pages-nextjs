@@ -24,11 +24,21 @@ const Home: FC<Users> = ({ users }) => {
               padding: '10px',
               border: '1px solid black',
               margin: '5px',
-              textDecoration: user.id > 10 ? 'line-through' : 'inherit',
             }}
             key={user.id}
           >
             {user.name}
+            <>
+              {user.videoUrls.length > 0 && (
+                <>
+                  {user.videoUrls.length === 1 ? (
+                    <span style={{ margin: '5px' }}>{'--Has video--'}</span>
+                  ) : (
+                    <span style={{ margin: '5px' }}>{'--Has many videos--'}</span>
+                  )}
+                </>
+              )}
+            </>
           </div>
         ))}
       </div>
@@ -42,7 +52,7 @@ export async function getStaticProps(): Promise<PropsPage> {
   const response = await fetch('https://jsonplaceholder.typicode.com/users')
   const result = await response.json()
   const users: User[] = result.map((user) => {
-    return { id: user.id, name: user.name }
+    return { id: user.id, name: user.name, videoUrls: [] }
   })
   return { props: { users } }
 }
