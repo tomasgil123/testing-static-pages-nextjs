@@ -8,6 +8,10 @@ type AppLayoutProps = {
   pageProps: any
 }
 
+if (process.env.NODE_ENV !== 'production') {
+  require('../../mocks')
+}
+
 function MyApp({ Component, pageProps }: AppLayoutProps): JSX.Element {
   const Layout = Component.layout ? Component.layout : React.Fragment
 
