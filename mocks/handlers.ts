@@ -8,12 +8,16 @@ const mockVideos = [
 ]
 
 export const handlers = [
-  rest.get('https://jsonplaceholder.typicode.com/users', async (req, res, ctx) => {
+  rest.get('https://jsonplaceholder.typicode.com/todos/1', async (req, res, ctx) => {
     const originalResponse = await ctx.fetch(req)
     const originalResponseData = await originalResponse.json()
-    const modifiedResponse = originalResponseData.map((user, index) => {
-      return { ...user, videoUrls: mockVideos[index] ? mockVideos[index] : [] }
-    })
-    return res(ctx.json(modifiedResponse))
+    originalResponseData.videoUrls = mockVideos[0]
+    return res(ctx.json(originalResponseData))
+  }),
+  rest.get('https://jsonplaceholder.typicode.com/todos/2', async (req, res, ctx) => {
+    const originalResponse = await ctx.fetch(req)
+    const originalResponseData = await originalResponse.json()
+    originalResponseData.videoUrls = mockVideos[1]
+    return res(ctx.json(originalResponseData))
   }),
 ]
