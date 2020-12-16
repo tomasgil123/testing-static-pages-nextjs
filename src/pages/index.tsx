@@ -1,44 +1,24 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { FC } from 'react'
-
+import Link from 'next/link'
 import MainLayout from 'src/layouts/main'
 
 //types
 import PageWithLayout from 'src/types/pageWithLayout'
-import { User } from 'src/types/user'
 
-interface Users {
-  users: User[]
-}
-interface PropsPage {
-  props: Users
-}
-
-const Home: FC<Users> = ({ users }) => {
+const Home: FC = () => {
   return (
     <div>
       Home
       <div style={{ width: '300px', margin: 'auto' }}>
-        {users.map((user) => (
+        {[1, 2, 3].map((numberTodo) => (
           <div
-            style={{
-              padding: '10px',
-              border: '1px solid black',
-              margin: '5px',
-            }}
-            key={user.id}
+            key={numberTodo}
+            style={{ padding: '10px', margin: '10px', border: '1px solid black' }}
           >
-            {user.name}
-            <>
-              {user.videoUrls.length > 0 && (
-                <>
-                  {user.videoUrls.length === 1 ? (
-                    <span style={{ margin: '5px' }}>{'--Has video--'}</span>
-                  ) : (
-                    <span style={{ margin: '5px' }}>{'--Has many videos--'}</span>
-                  )}
-                </>
-              )}
-            </>
+            <Link href={`/todos/${numberTodo}`}>
+              <a>{`Todo ${numberTodo}`}</a>
+            </Link>
           </div>
         ))}
       </div>
@@ -47,14 +27,5 @@ const Home: FC<Users> = ({ users }) => {
 }
 
 ;(Home as PageWithLayout).layout = MainLayout
-
-export async function getStaticProps(): Promise<PropsPage> {
-  const response = await fetch('https://jsonplaceholder.typicode.com/users')
-  const result = await response.json()
-  const users: User[] = result.map((user) => {
-    return { id: user.id, name: user.name, videoUrls: user.videoUrls ? user.videoUrls : [] }
-  })
-  return { props: { users } }
-}
 
 export default Home
