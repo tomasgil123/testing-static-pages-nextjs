@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+import { useInView } from 'react-intersection-observer'
 
 import MainLayout from 'src/layouts/main'
 
@@ -20,6 +21,10 @@ interface StaticPaths {
 }
 
 const Home: FC<TodoPage> = ({ todo }) => {
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    threshold: 0,
+  })
   return (
     <div>
       Todo page
@@ -33,13 +38,17 @@ const Home: FC<TodoPage> = ({ todo }) => {
       >
         <div>{todo.title}</div>
       </div>
-      <div>
-        {todo.videoUrls.length > 0 && (
+      <div ref={ref}>
+        {inView && (
           <>
-            {todo.videoUrls.length === 1 ? (
-              <span style={{ margin: '5px' }}>{'--Has video--'}</span>
-            ) : (
-              <span style={{ margin: '5px' }}>{'--Has many videos--'}</span>
+            {todo.videoUrls.length > 0 && (
+              <>
+                {todo.videoUrls.length === 1 ? (
+                  <span style={{ margin: '5px' }}>{'--Has video--'}</span>
+                ) : (
+                  <span style={{ margin: '5px' }}>{'--Has many videos--'}</span>
+                )}
+              </>
             )}
           </>
         )}
