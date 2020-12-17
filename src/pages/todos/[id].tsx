@@ -39,6 +39,7 @@ const Home: FC<TodoPage> = ({ todo }) => {
         <div>{todo.title}</div>
       </div>
       <div ref={ref}>
+        <span>Video</span>
         {inView && (
           <>
             {todo.videoUrls.length > 0 && (
