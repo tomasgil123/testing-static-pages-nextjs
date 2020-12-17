@@ -8,7 +8,7 @@ type AppLayoutProps = {
   pageProps: any
 }
 
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV === 'test') {
   require('../../mocks')
 }
 

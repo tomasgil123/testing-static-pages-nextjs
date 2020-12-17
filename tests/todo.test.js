@@ -3,7 +3,7 @@ const playwright = require('playwright')
 
 for (const browserType of ['chromium']) {
   //add this to launch() to open browser when doing the tests { headless: false, slowMo: 100 }
-  describe('user videos are displayed correctly', () => {
+  describe('todos videos are displayed correctly', () => {
     test('video section is not visible until scrolling', async () => {
       let browser = await playwright[browserType].launch()
       const context = await browser.newContext()
@@ -19,7 +19,7 @@ for (const browserType of ['chromium']) {
       await browser.close()
     })
 
-    test('users with one video are display correctly', async () => {
+    test('todo with one video are display correctly', async () => {
       let browser = await playwright[browserType].launch()
       const context = await browser.newContext()
       let page = await context.newPage()
@@ -37,7 +37,7 @@ for (const browserType of ['chromium']) {
       expect(numberElementsWithOneVideo).toBe(1)
     })
 
-    test('users with more than one video are display correctly', async () => {
+    test('todo with more than one video are display correctly', async () => {
       let browser = await playwright[browserType].launch()
       const context = await browser.newContext()
       let page = await context.newPage()
